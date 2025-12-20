@@ -1,0 +1,66 @@
+[
+    {
+        "merged": "/home/ganapathiraj/.gradle/daemon/8.11.1/com.antigravity.apkupdater.app-merged_res-53:/mipmap-xhdpi_ic_updater_app_icon.png.flat",
+        "source": "/home/ganapathiraj/.gradle/daemon/8.11.1/com.antigravity.apkupdater.app-main-55:/mipmap-xhdpi/ic_updater_app_icon.png"
+    },
+    {
+        "merged": "/home/ganapathiraj/.gradle/daemon/8.11.1/com.antigravity.apkupdater.app-merged_res-53:/mipmap-mdpi_ic_updater_app_icon.png.flat",
+        "source": "/home/ganapathiraj/.gradle/daemon/8.11.1/com.antigravity.apkupdater.app-main-55:/mipmap-mdpi/ic_updater_app_icon.png"
+    },
+    {
+        "merged": "/home/ganapathiraj/.gradle/daemon/8.11.1/com.antigravity.apkupdater.app-merged_res-53:/xml_file_paths.xml.flat",
+        "source": "/home/ganapathiraj/.gradle/daemon/8.11.1/com.antigravity.apkupdater.app-main-55:/xml/file_paths.xml"
+    },
+    {
+        "merged": "/home/ganapathiraj/.gradle/daemon/8.11.1/com.antigravity.apkupdater.app-merged_res-53:/mipmap-xhdpi_ic_updater_app_icon_round.png.flat",
+        "source": "/home/ganapathiraj/.gradle/daemon/8.11.1/com.antigravity.apkupdater.app-main-55:/mipmap-xhdpi/ic_updater_app_icon_round.png"
+    },
+    {
+        "merged": "/home/ganapathiraj/.gradle/daemon/8.11.1/com.antigravity.apkupdater.app-merged_res-53:/xml_data_extraction_rules.xml.flat",
+        "source": "/home/ganapathiraj/.gradle/daemon/8.11.1/com.antigravity.apkupdater.app-main-55:/xml/data_extraction_rules.xml"
+    },
+    {
+        "merged": "/home/ganapathiraj/.gradle/daemon/8.11.1/com.antigravity.apkupdater.app-merged_res-53:/mipmap-anydpi-v26_ic_updater_app_icon_round.xml.flat",
+        "source": "/home/ganapathiraj/.gradle/daemon/8.11.1/com.antigravity.apkupdater.app-main-55:/mipmap-anydpi-v26/ic_updater_app_icon_round.xml"
+    },
+    {
+        "merged": "com.antigravity.apkupdater.app-merged_res-53:/xml_file_paths.xml.flat",
+        "source": "com.antigravity.apkupdater.app-main-55:/xml/file_paths.xml"
+    },
+    {
+        "merged": "/home/ganapathiraj/.gradle/daemon/8.11.1/com.antigravity.apkupdater.app-merged_res-53:/mipmap-hdpi_ic_updater_app_icon.png.flat",
+        "source": "/home/ganapathiraj/.gradle/daemon/8.11.1/com.antigravity.apkupdater.app-main-55:/mipmap-hdpi/ic_updater_app_icon.png"
+    },
+    {
+        "merged": "/home/ganapathiraj/.gradle/daemon/8.11.1/com.antigravity.apkupdater.app-merged_res-53:/mipmap-anydpi-v26_ic_updater_app_icon.xml.flat",
+        "source": "/home/ganapathiraj/.gradle/daemon/8.11.1/com.antigravity.apkupdater.app-main-55:/mipmap-anydpi-v26/ic_updater_app_icon.xml"
+    },
+    {
+        "merged": "/home/ganapathiraj/.gradle/daemon/8.11.1/com.antigravity.apkupdater.app-merged_res-53:/mipmap-xxxhdpi_ic_updater_app_icon_round.png.flat",
+        "source": "/home/ganapathiraj/.gradle/daemon/8.11.1/com.antigravity.apkupdater.app-main-55:/mipmap-xxxhdpi/ic_updater_app_icon_round.png"
+    },
+    {
+        "merged": "/home/ganapathiraj/.gradle/daemon/8.11.1/com.antigravity.apkupdater.app-merged_res-53:/mipmap-hdpi_ic_updater_app_icon_round.png.flat",
+        "source": "/home/ganapathiraj/.gradle/daemon/8.11.1/com.antigravity.apkupdater.app-main-55:/mipmap-hdpi/ic_updater_app_icon_round.png"
+    },
+    {
+        "merged": "/home/ganapathiraj/.gradle/daemon/8.11.1/com.antigravity.apkupdater.app-merged_res-53:/mipmap-xxhdpi_ic_updater_app_icon_round.png.flat",
+        "source": "/home/ganapathiraj/.gradle/daemon/8.11.1/com.antigravity.apkupdater.app-main-55:/mipmap-xxhdpi/ic_updater_app_icon_round.png"
+    },
+    {
+        "merged": "/home/ganapathiraj/.gradle/daemon/8.11.1/com.antigravity.apkupdater.app-merged_res-53:/mipmap-xxhdpi_ic_updater_app_icon.png.flat",
+        "source": "/home/ganapathiraj/.gradle/daemon/8.11.1/com.antigravity.apkupdater.app-main-55:/mipmap-xxhdpi/ic_updater_app_icon.png"
+    },
+    {
+        "merged": "/home/ganapathiraj/.gradle/daemon/8.11.1/com.antigravity.apkupdater.app-merged_res-53:/xml_backup_rules.xml.flat",
+        "source": "/home/ganapathiraj/.gradle/daemon/8.11.1/com.antigravity.apkupdater.app-main-55:/xml/backup_rules.xml"
+    },
+    {
+        "merged": "/home/ganapathiraj/.gradle/daemon/8.11.1/com.antigravity.apkupdater.app-merged_res-53:/mipmap-mdpi_ic_updater_app_icon_round.png.flat",
+        "source": "/home/ganapathiraj/.gradle/daemon/8.11.1/com.antigravity.apkupdater.app-main-55:/mipmap-mdpi/ic_updater_app_icon_round.png"
+    },
+    {
+        "merged": "/home/ganapathiraj/.gradle/daemon/8.11.1/com.antigravity.apkupdater.app-merged_res-53:/mipmap-xxxhdpi_ic_updater_app_icon.png.flat",
+        "source": "/home/ganapathiraj/.gradle/daemon/8.11.1/com.antigravity.apkupdater.app-main-55:/mipmap-xxxhdpi/ic_updater_app_icon.png"
+    }
+]
