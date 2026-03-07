@@ -683,7 +683,7 @@ fun MainScreen(
         }
 
         Text(
-            text = "Version 1.0.3",
+            text = "Version 1.0.4",
             modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 16.dp),
             style = MaterialTheme.typography.labelSmall,
             color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.4f)
