@@ -7,30 +7,46 @@ $env:JAVA_HOME = "C:\Program Files\Android\Android Studio\jbr"
 Write-Host "Building ApkUpdater APK..."
 & "C:\Program Files\Android\Android Studio\jbr\bin\java.exe" -cp gradle\wrapper\gradle-wrapper.jar org.gradle.wrapper.GradleWrapperMain assembleDebug
 
-$apkPath = "app/build/outputs/apk/debug/app-debug.apk"
-if (-Not (Test-Path $apkPath)) {
-    Write-Error "APK not found at $apkPath"
+$buildApkPath = "app/build/outputs/apk/debug/app-debug.apk"
+$finalApkPath = "ApkUpdater.apk"
+
+if (-Not (Test-Path $buildApkPath)) {
+    Write-Error "APK not found at $buildApkPath"
     exit 1
 }
 
-# 2. Get current version from build.gradle.kts
+# Copy to root and rename
+Copy-Item $buildApkPath $finalApkPath
+
+# 3. Get current version from build.gradle.kts
 $gradleFile = "app/build.gradle.kts"
 $versionName = (Get-Content $gradleFile | Select-String 'versionName = "(.*)"').Matches.Groups[1].Value
 $versionCode = (Get-Content $gradleFile | Select-String 'versionCode = (.*)').Matches.Groups[1].Value
 
 Write-Host "Current Version: $versionName ($versionCode)"
 
-# 3. Create a unique tag based on time or version
-$tag = "v$versionName.$versionCode"
-$releaseTitle = "ApkUpdater $versionName"
-
 # 4. Commit and Push any changes
+$branch = git branch --show-current
 git add .
-git commit -m "Build $tag"
-git push origin master
+git commit -m "Build v$versionName.$versionCode"
+git push origin $branch
 
-# 5. Create GitHub Release
-Write-Host "Creating GitHub Release $tag..."
-gh release create $tag $apkPath --title $releaseTitle --notes "Automated release for ApkUpdater with CallCompanion integration" --latest
+# 5. Handle GitHub Release
+$tagName = "latest"
+$versionTag = "v$versionName.$versionCode"
+
+# Delete existing 'latest' release and tag to ensure the URL always points to the newest
+Write-Host "Cleaning up existing 'latest' release..."
+gh release delete $tagName --yes
+git tag -d $tagName
+git push origin :refs/tags/$tagName
+
+# Create new 'latest' release
+Write-Host "Creating GitHub Release $tagName..."
+gh release create $tagName $finalApkPath --title "ApkUpdater Latest" --notes "Automated release for ApkUpdater v$versionName" --latest
+
+# Also create a versioned release for history
+Write-Host "Creating versioned release $versionTag..."
+gh release create $versionTag $finalApkPath --title "ApkUpdater $versionName" --notes "Versioned release for history"
 
 Write-Host "Publish complete!"
