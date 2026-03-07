@@ -157,6 +157,7 @@ class MainActivity : ComponentActivity() {
                     )
                 } else {
                     MainScreen(
+                        url = currentUrl,
                         status = statusMessage,
                         isDownloading = isDownloading,
                         lastDownloadedFileName = lastDownloadedFileName,
@@ -565,6 +566,7 @@ class MainActivity : ComponentActivity() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(
+    url: String,
     status: String, 
     isDownloading: Boolean, 
     lastDownloadedFileName: String?, 
@@ -592,6 +594,17 @@ fun MainScreen(
             Text(text = "APK Updater", style = MaterialTheme.typography.headlineMedium)
             Spacer(modifier = Modifier.height(16.dp))
             Text(text = status, style = MaterialTheme.typography.bodyLarge)
+            
+            Spacer(modifier = Modifier.height(16.dp))
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
+            ) {
+                Column(modifier = Modifier.padding(12.dp)) {
+                    Text("Direct Download URL:", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary)
+                    Text(url, style = MaterialTheme.typography.bodySmall, maxLines = 1)
+                }
+            }
             
             Spacer(modifier = Modifier.height(32.dp))
             if (isDownloading) {
@@ -662,12 +675,19 @@ fun MainScreen(
             }
         }
         
-        TextButton(
+        IconButton(
             onClick = onSettingsClick,
-            modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 32.dp)
+            modifier = Modifier.align(Alignment.TopEnd).padding(16.dp)
         ) {
-            Text("Launch Settings", style = MaterialTheme.typography.bodySmall)
+            Icon(Icons.Default.Settings, contentDescription = "Settings")
         }
+
+        Text(
+            text = "Version 1.0.2",
+            modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 16.dp),
+            style = MaterialTheme.typography.labelSmall,
+            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.4f)
+        )
     }
 }
 

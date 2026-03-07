@@ -1,62 +1,62 @@
 [
     {
-        "merged": "com.antigravity.apkupdater.app-merged_res-4:/mipmap-xhdpi_ic_updater_app_icon.png.flat",
-        "source": "com.antigravity.apkupdater.app-main-6:/mipmap-xhdpi/ic_updater_app_icon.png"
+        "merged": "C:\\Users\\ganap\\.gradle\\daemon\\8.11.1\\com.antigravity.apkupdater.app-merged_res-4:\\mipmap-xxhdpi_ic_updater_app_icon.png.flat",
+        "source": "C:\\Users\\ganap\\.gradle\\daemon\\8.11.1\\com.antigravity.apkupdater.app-main-6:\\mipmap-xxhdpi\\ic_updater_app_icon.png"
     },
     {
-        "merged": "com.antigravity.apkupdater.app-merged_res-4:/mipmap-xxhdpi_ic_updater_app_icon.png.flat",
-        "source": "com.antigravity.apkupdater.app-main-6:/mipmap-xxhdpi/ic_updater_app_icon.png"
+        "merged": "C:\\Users\\ganap\\.gradle\\daemon\\8.11.1\\com.antigravity.apkupdater.app-merged_res-4:\\xml_file_paths.xml.flat",
+        "source": "C:\\Users\\ganap\\.gradle\\daemon\\8.11.1\\com.antigravity.apkupdater.app-main-6:\\xml\\file_paths.xml"
     },
     {
-        "merged": "com.antigravity.apkupdater.app-merged_res-4:/mipmap-xxxhdpi_ic_updater_app_icon.png.flat",
-        "source": "com.antigravity.apkupdater.app-main-6:/mipmap-xxxhdpi/ic_updater_app_icon.png"
+        "merged": "C:\\Users\\ganap\\.gradle\\daemon\\8.11.1\\com.antigravity.apkupdater.app-merged_res-4:\\mipmap-anydpi-v26_ic_updater_app_icon.xml.flat",
+        "source": "C:\\Users\\ganap\\.gradle\\daemon\\8.11.1\\com.antigravity.apkupdater.app-main-6:\\mipmap-anydpi-v26\\ic_updater_app_icon.xml"
     },
     {
-        "merged": "com.antigravity.apkupdater.app-merged_res-4:/mipmap-hdpi_ic_updater_app_icon_round.png.flat",
-        "source": "com.antigravity.apkupdater.app-main-6:/mipmap-hdpi/ic_updater_app_icon_round.png"
+        "merged": "C:\\Users\\ganap\\.gradle\\daemon\\8.11.1\\com.antigravity.apkupdater.app-merged_res-4:\\mipmap-xxxhdpi_ic_updater_app_icon.png.flat",
+        "source": "C:\\Users\\ganap\\.gradle\\daemon\\8.11.1\\com.antigravity.apkupdater.app-main-6:\\mipmap-xxxhdpi\\ic_updater_app_icon.png"
     },
     {
-        "merged": "com.antigravity.apkupdater.app-merged_res-4:/mipmap-mdpi_ic_updater_app_icon_round.png.flat",
-        "source": "com.antigravity.apkupdater.app-main-6:/mipmap-mdpi/ic_updater_app_icon_round.png"
+        "merged": "C:\\Users\\ganap\\.gradle\\daemon\\8.11.1\\com.antigravity.apkupdater.app-merged_res-4:\\mipmap-xhdpi_ic_updater_app_icon.png.flat",
+        "source": "C:\\Users\\ganap\\.gradle\\daemon\\8.11.1\\com.antigravity.apkupdater.app-main-6:\\mipmap-xhdpi\\ic_updater_app_icon.png"
     },
     {
-        "merged": "com.antigravity.apkupdater.app-merged_res-4:/xml_backup_rules.xml.flat",
-        "source": "com.antigravity.apkupdater.app-main-6:/xml/backup_rules.xml"
+        "merged": "C:\\Users\\ganap\\.gradle\\daemon\\8.11.1\\com.antigravity.apkupdater.app-merged_res-4:\\mipmap-xhdpi_ic_updater_app_icon_round.png.flat",
+        "source": "C:\\Users\\ganap\\.gradle\\daemon\\8.11.1\\com.antigravity.apkupdater.app-main-6:\\mipmap-xhdpi\\ic_updater_app_icon_round.png"
     },
     {
-        "merged": "com.antigravity.apkupdater.app-merged_res-4:/mipmap-anydpi-v26_ic_updater_app_icon_round.xml.flat",
-        "source": "com.antigravity.apkupdater.app-main-6:/mipmap-anydpi-v26/ic_updater_app_icon_round.xml"
+        "merged": "C:\\Users\\ganap\\.gradle\\daemon\\8.11.1\\com.antigravity.apkupdater.app-merged_res-4:\\mipmap-hdpi_ic_updater_app_icon.png.flat",
+        "source": "C:\\Users\\ganap\\.gradle\\daemon\\8.11.1\\com.antigravity.apkupdater.app-main-6:\\mipmap-hdpi\\ic_updater_app_icon.png"
     },
     {
-        "merged": "com.antigravity.apkupdater.app-merged_res-4:/mipmap-xxxhdpi_ic_updater_app_icon_round.png.flat",
-        "source": "com.antigravity.apkupdater.app-main-6:/mipmap-xxxhdpi/ic_updater_app_icon_round.png"
+        "merged": "C:\\Users\\ganap\\.gradle\\daemon\\8.11.1\\com.antigravity.apkupdater.app-merged_res-4:\\mipmap-hdpi_ic_updater_app_icon_round.png.flat",
+        "source": "C:\\Users\\ganap\\.gradle\\daemon\\8.11.1\\com.antigravity.apkupdater.app-main-6:\\mipmap-hdpi\\ic_updater_app_icon_round.png"
     },
     {
-        "merged": "com.antigravity.apkupdater.app-merged_res-4:/mipmap-xxhdpi_ic_updater_app_icon_round.png.flat",
-        "source": "com.antigravity.apkupdater.app-main-6:/mipmap-xxhdpi/ic_updater_app_icon_round.png"
+        "merged": "C:\\Users\\ganap\\.gradle\\daemon\\8.11.1\\com.antigravity.apkupdater.app-merged_res-4:\\mipmap-xxhdpi_ic_updater_app_icon_round.png.flat",
+        "source": "C:\\Users\\ganap\\.gradle\\daemon\\8.11.1\\com.antigravity.apkupdater.app-main-6:\\mipmap-xxhdpi\\ic_updater_app_icon_round.png"
     },
     {
-        "merged": "com.antigravity.apkupdater.app-merged_res-4:/mipmap-hdpi_ic_updater_app_icon.png.flat",
-        "source": "com.antigravity.apkupdater.app-main-6:/mipmap-hdpi/ic_updater_app_icon.png"
+        "merged": "C:\\Users\\ganap\\.gradle\\daemon\\8.11.1\\com.antigravity.apkupdater.app-merged_res-4:\\mipmap-mdpi_ic_updater_app_icon.png.flat",
+        "source": "C:\\Users\\ganap\\.gradle\\daemon\\8.11.1\\com.antigravity.apkupdater.app-main-6:\\mipmap-mdpi\\ic_updater_app_icon.png"
     },
     {
-        "merged": "com.antigravity.apkupdater.app-merged_res-4:/mipmap-xhdpi_ic_updater_app_icon_round.png.flat",
-        "source": "com.antigravity.apkupdater.app-main-6:/mipmap-xhdpi/ic_updater_app_icon_round.png"
+        "merged": "C:\\Users\\ganap\\.gradle\\daemon\\8.11.1\\com.antigravity.apkupdater.app-merged_res-4:\\mipmap-anydpi-v26_ic_updater_app_icon_round.xml.flat",
+        "source": "C:\\Users\\ganap\\.gradle\\daemon\\8.11.1\\com.antigravity.apkupdater.app-main-6:\\mipmap-anydpi-v26\\ic_updater_app_icon_round.xml"
     },
     {
-        "merged": "com.antigravity.apkupdater.app-merged_res-4:/xml_file_paths.xml.flat",
-        "source": "com.antigravity.apkupdater.app-main-6:/xml/file_paths.xml"
+        "merged": "C:\\Users\\ganap\\.gradle\\daemon\\8.11.1\\com.antigravity.apkupdater.app-merged_res-4:\\xml_data_extraction_rules.xml.flat",
+        "source": "C:\\Users\\ganap\\.gradle\\daemon\\8.11.1\\com.antigravity.apkupdater.app-main-6:\\xml\\data_extraction_rules.xml"
     },
     {
-        "merged": "com.antigravity.apkupdater.app-merged_res-4:/mipmap-anydpi-v26_ic_updater_app_icon.xml.flat",
-        "source": "com.antigravity.apkupdater.app-main-6:/mipmap-anydpi-v26/ic_updater_app_icon.xml"
+        "merged": "C:\\Users\\ganap\\.gradle\\daemon\\8.11.1\\com.antigravity.apkupdater.app-merged_res-4:\\mipmap-mdpi_ic_updater_app_icon_round.png.flat",
+        "source": "C:\\Users\\ganap\\.gradle\\daemon\\8.11.1\\com.antigravity.apkupdater.app-main-6:\\mipmap-mdpi\\ic_updater_app_icon_round.png"
     },
     {
-        "merged": "com.antigravity.apkupdater.app-merged_res-4:/mipmap-mdpi_ic_updater_app_icon.png.flat",
-        "source": "com.antigravity.apkupdater.app-main-6:/mipmap-mdpi/ic_updater_app_icon.png"
+        "merged": "C:\\Users\\ganap\\.gradle\\daemon\\8.11.1\\com.antigravity.apkupdater.app-merged_res-4:\\xml_backup_rules.xml.flat",
+        "source": "C:\\Users\\ganap\\.gradle\\daemon\\8.11.1\\com.antigravity.apkupdater.app-main-6:\\xml\\backup_rules.xml"
     },
     {
-        "merged": "com.antigravity.apkupdater.app-merged_res-4:/xml_data_extraction_rules.xml.flat",
-        "source": "com.antigravity.apkupdater.app-main-6:/xml/data_extraction_rules.xml"
+        "merged": "C:\\Users\\ganap\\.gradle\\daemon\\8.11.1\\com.antigravity.apkupdater.app-merged_res-4:\\mipmap-xxxhdpi_ic_updater_app_icon_round.png.flat",
+        "source": "C:\\Users\\ganap\\.gradle\\daemon\\8.11.1\\com.antigravity.apkupdater.app-main-6:\\mipmap-xxxhdpi\\ic_updater_app_icon_round.png"
     }
 ]
