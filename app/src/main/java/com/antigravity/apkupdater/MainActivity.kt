@@ -45,12 +45,14 @@ class MainActivity : ComponentActivity() {
     private val KEY_SBB_PAYMENT_URL = "sbb_payment_update_url"
     private val KEY_GPAY_TEST_URL = "gpay_test_update_url"
     private val KEY_SIG_SCANNER_URL = "sig_scanner_update_url"
+    private val KEY_CALL_COMPANION_URL = "call_companion_update_url"
     private val DEFAULT_UPDATER_URL = "https://github.com/Ganapathiraj-A/ApkUpdater/releases/download/latest/ApkUpdater.apk"
     private val DEFAULT_AGENT_URL = "https://github.com/Ganapathiraj-A/AgentCompanion/releases/download/latest/AgentCompanion.apk"
     private val DEFAULT_TAMIL_CALENDAR_URL = "https://github.com/Ganapathiraj-A/TamilCalendar/releases/download/latest/TamilCalendar.apk"
     private val DEFAULT_SBB_PAYMENT_URL = "https://github.com/Ganapathiraj-A/SBBPayment/releases/download/latest/SBBPayment.apk"
     private val DEFAULT_GPAY_TEST_URL = "https://github.com/Ganapathiraj-A/GpayTest/releases/download/latest/GpayTest.apk"
     private val DEFAULT_SIG_SCANNER_URL = "https://github.com/Ganapathiraj-A/SriBagavath/releases/download/scanner/SignatureScanner.apk"
+    private val DEFAULT_CALL_COMPANION_URL = "https://github.com/Ganapathiraj-A/CallCompanion/releases/download/latest/CallCompanion.apk"
 
     private val SRI_BAGAVATH_API_URL = "https://api.github.com/repos/Ganapathiraj-A/SriBagavath/releases/latest"
     private val APK_UPDATER_API_URL = "https://api.github.com/repos/Ganapathiraj-A/ApkUpdater/releases/latest"
@@ -59,6 +61,7 @@ class MainActivity : ComponentActivity() {
     private val SBB_PAYMENT_API_URL = "https://api.github.com/repos/Ganapathiraj-A/SBBPayment/releases/latest"
     private val GPAY_TEST_API_URL = "https://api.github.com/repos/Ganapathiraj-A/GpayTest/releases/latest"
     private val SIG_SCANNER_API_URL = "https://api.github.com/repos/Ganapathiraj-A/SriBagavath/releases/tags/scanner"
+    private val CALL_COMPANION_API_URL = "https://api.github.com/repos/Ganapathiraj-A/CallCompanion/releases/latest"
     private val GITHUB_API_URL = SRI_BAGAVATH_API_URL
     private val DEFAULT_URL = "https://github.com/Ganapathiraj-A/SriBagavath/releases/download/latest/SriBagavath.apk"
 
@@ -76,6 +79,7 @@ class MainActivity : ComponentActivity() {
             val sbbPaymentUrlState = remember { mutableStateOf(getSavedSBBPaymentUrl()) }
             val gpayTestUrlState = remember { mutableStateOf(getSavedGpayTestUrl()) }
             val sigScannerUrlState = remember { mutableStateOf(getSavedSigScannerUrl()) }
+            val callCompanionUrlState = remember { mutableStateOf(getSavedCallCompanionUrl()) }
             val monitorPeriod = remember { mutableStateOf(getMonitorPeriod()) }
             var statusMessage by remember { mutableStateOf(if (isDoubleLaunch) "Settings Mode" else "Ready to Update") }
             var isDownloading by remember { mutableStateOf(false) }
@@ -116,9 +120,10 @@ class MainActivity : ComponentActivity() {
                         sbbUrl = sbbPaymentUrlState.value,
                         gpayUrl = gpayTestUrlState.value,
                         sigScannerUrl = sigScannerUrlState.value,
+                        callCompanionUrl = callCompanionUrlState.value,
                         period = monitorPeriod.value,
                         interval = getMonitorInterval(),
-                        onSave = { newUrl, newUpdaterUrl, newAgentUrl, newTamilUrl, newSbbUrl, newGpayUrl, newSigScannerUrl, newPeriod, newInterval ->
+                        onSave = { newUrl, newUpdaterUrl, newAgentUrl, newTamilUrl, newSbbUrl, newGpayUrl, newSigScannerUrl, newCallCompanionUrl, newPeriod, newInterval ->
                             saveUrl(newUrl)
                             saveUpdaterUrl(newUpdaterUrl)
                             saveAgentUrl(newAgentUrl)
@@ -126,6 +131,7 @@ class MainActivity : ComponentActivity() {
                             saveSBBPaymentUrl(newSbbUrl)
                             saveGpayTestUrl(newGpayUrl)
                             saveSigScannerUrl(newSigScannerUrl)
+                            saveCallCompanionUrl(newCallCompanionUrl)
                             saveMonitorPeriod(newPeriod)
                             saveMonitorInterval(newInterval)
                             setupBackgroundWork(newPeriod, newInterval)
@@ -136,6 +142,7 @@ class MainActivity : ComponentActivity() {
                             sbbPaymentUrlState.value = newSbbUrl
                             gpayTestUrlState.value = newGpayUrl
                             sigScannerUrlState.value = newSigScannerUrl
+                            callCompanionUrlState.value = newCallCompanionUrl
                             monitorPeriod.value = newPeriod
                             showSettings = false
                             statusMessage = "Settings Saved"
@@ -271,6 +278,22 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
                         },
+                        onCallCompanionUpdateClick = {
+                            isDownloading = true
+                            statusMessage = "Checking for Call Companion..."
+                            checkForNewVersion(CALL_COMPANION_API_URL, "CallCompanion.apk") { hasNew, tag, id, downloadUrl, message ->
+                                if (hasNew || downloadUrl != null) {
+                                    statusMessage = "Downloading Call Companion $tag..."
+                                    downloadAndInstallApk(downloadUrl ?: callCompanionUrlState.value, tag, "call_companion") { _, msg ->
+                                        isDownloading = false
+                                        statusMessage = msg
+                                    }
+                                } else {
+                                    isDownloading = false
+                                    statusMessage = message ?: "Call Companion up to date."
+                                }
+                            }
+                        },
                         onReinstallCachedClick = {
                             lastDownloadedFileName?.let { installApk(it) }
                         },
@@ -327,6 +350,9 @@ class MainActivity : ComponentActivity() {
 
     private fun getSavedSigScannerUrl() = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).getString(KEY_SIG_SCANNER_URL, DEFAULT_SIG_SCANNER_URL) ?: DEFAULT_SIG_SCANNER_URL
     private fun saveSigScannerUrl(url: String) = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit().putString(KEY_SIG_SCANNER_URL, url).apply()
+
+    private fun getSavedCallCompanionUrl() = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).getString(KEY_CALL_COMPANION_URL, DEFAULT_CALL_COMPANION_URL) ?: DEFAULT_CALL_COMPANION_URL
+    private fun saveCallCompanionUrl(url: String) = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit().putString(KEY_CALL_COMPANION_URL, url).apply()
 
     private fun getMonitorPeriod() = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).getString(KEY_MONITOR_PERIOD, "Off") ?: "Off"
     private fun saveMonitorPeriod(period: String) {
@@ -550,6 +576,7 @@ fun MainScreen(
     onSBBPaymentUpdateClick: () -> Unit,
     onGpayTestUpdateClick: () -> Unit,
     onSigScannerUpdateClick: () -> Unit,
+    onCallCompanionUpdateClick: () -> Unit,
     onReinstallCachedClick: () -> Unit, 
     onReinstallLatestClick: () -> Unit, 
     onSettingsClick: () -> Unit
@@ -627,6 +654,11 @@ fun MainScreen(
                 OutlinedButton(onClick = onSigScannerUpdateClick, modifier = Modifier.fillMaxWidth()) {
                     Text("Get Signature Scanner")
                 }
+
+                Spacer(modifier = Modifier.height(8.dp))
+                OutlinedButton(onClick = onCallCompanionUpdateClick, modifier = Modifier.fillMaxWidth()) {
+                    Text("Update Call Companion")
+                }
             }
         }
         
@@ -641,7 +673,7 @@ fun MainScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SettingsScreen(url: String, updaterUrl: String, agentUrl: String, tamilUrl: String, sbbUrl: String, gpayUrl: String, sigScannerUrl: String, period: String, interval: String, onSave: (String, String, String, String, String, String, String, String, String) -> Unit, onCancel: () -> Unit) {
+fun SettingsScreen(url: String, updaterUrl: String, agentUrl: String, tamilUrl: String, sbbUrl: String, gpayUrl: String, sigScannerUrl: String, callCompanionUrl: String, period: String, interval: String, onSave: (String, String, String, String, String, String, String, String, String, String) -> Unit, onCancel: () -> Unit) {
     var text by remember { mutableStateOf(url) }
     var updaterText by remember { mutableStateOf(updaterUrl) }
     var agentText by remember { mutableStateOf(agentUrl) }
@@ -649,6 +681,7 @@ fun SettingsScreen(url: String, updaterUrl: String, agentUrl: String, tamilUrl: 
     var sbbText by remember { mutableStateOf(sbbUrl) }
     var gpayText by remember { mutableStateOf(gpayUrl) }
     var sigScannerText by remember { mutableStateOf(sigScannerUrl) }
+    var callCompanionText by remember { mutableStateOf(callCompanionUrl) }
     var selectedPeriod by remember { mutableStateOf(period) }
     var selectedInterval by remember { mutableStateOf(interval) }
     
@@ -715,6 +748,13 @@ fun SettingsScreen(url: String, updaterUrl: String, agentUrl: String, tamilUrl: 
             label = { Text("Signature Scanner URL") },
             modifier = Modifier.fillMaxWidth()
         )
+
+        OutlinedTextField(
+            value = callCompanionText,
+            onValueChange = { callCompanionText = it },
+            label = { Text("Call Companion Update URL") },
+            modifier = Modifier.fillMaxWidth()
+        )
         
         Spacer(modifier = Modifier.height(24.dp))
         
@@ -757,7 +797,7 @@ fun SettingsScreen(url: String, updaterUrl: String, agentUrl: String, tamilUrl: 
             TextButton(onClick = onCancel) {
                 Text("Cancel")
             }
-            Button(onClick = { onSave(text, updaterText, agentText, tamilText, sbbText, gpayText, sigScannerText, selectedPeriod, selectedInterval) }) {
+            Button(onClick = { onSave(text, updaterText, agentText, tamilText, sbbText, gpayText, sigScannerText, callCompanionText, selectedPeriod, selectedInterval) }) {
                 Text("Save")
             }
         }
