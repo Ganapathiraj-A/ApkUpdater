@@ -5,7 +5,7 @@ $env:JAVA_HOME = "C:\Program Files\Android\Android Studio\jbr"
 
 # 2. Build the APK
 Write-Host "Building ApkUpdater APK..."
-& "C:\Program Files\Android\Android Studio\jbr\bin\java.exe" -cp gradle\wrapper\gradle-wrapper.jar org.gradle.wrapper.GradleWrapperMain assembleDebug
+& "C:\Program Files\Android\Android Studio\jbr\bin\java.exe" -cp gradle\wrapper\gradle-wrapper.jar org.gradle.wrapper.GradleWrapperMain clean assembleDebug
 
 $buildApkPath = "app/build/outputs/apk/debug/app-debug.apk"
 $finalApkPath = "ApkUpdater.apk"
