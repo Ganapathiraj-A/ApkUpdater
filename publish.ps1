@@ -24,8 +24,8 @@ $content = Get-Content $gradleFile
 $versionName = ($content | Select-String 'versionName = "(.*)"').Matches.Groups[1].Value
 $versionCode = ($content | Select-String 'versionCode = (.*)').Matches.Groups[1].Value
 
-if (-Not $versionName) { $versionName = "1.1.0" }
-if (-Not $versionCode) { $versionCode = "10" }
+if (-Not $versionName) { $versionName = "1.1.2" }
+if (-Not $versionCode) { $versionCode = "12" }
 
 Write-Host "Detected Version: $versionName ($versionCode)"
 
@@ -35,21 +35,27 @@ git add .
 git commit -m "Build v$versionName.$versionCode"
 git push origin $branch
 
-# 5. Handle GitHub Release
-$tagName = "latest"
+# 5. Handle GitHub Releases
+$latestTag = "latest"
 $versionTag = "v$versionName.$versionCode"
 
-# Delete existing 'latest' release and tag to ensure the URL always points to the newest
+# Clean up 'latest'
 Write-Host "Cleaning up existing 'latest' release..."
-gh release delete $tagName --yes
-git tag -d $tagName
-git push origin :refs/tags/$tagName
+gh release delete $latestTag --yes 2>$null
+git tag -d $latestTag 2>$null
+git push origin :refs/tags/$latestTag 2>$null
 
-# Create new 'latest' release
-Write-Host "Creating GitHub Release $tagName..."
-gh release create $tagName $finalApkPath --title "ApkUpdater Latest" --notes "Automated release for ApkUpdater v$versionName" --latest
+# Clean up versioned tag
+Write-Host "Cleaning up existing versioned release $versionTag..."
+gh release delete $versionTag --yes 2>$null
+git tag -d $versionTag 2>$null
+git push origin :refs/tags/$versionTag 2>$null
 
-# Also create a versioned release for history
+# Create 'latest' release
+Write-Host "Creating GitHub Release $latestTag..."
+gh release create $latestTag $finalApkPath --title "ApkUpdater Latest" --notes "Automated release for ApkUpdater v$versionName" --latest
+
+# Create versioned release
 Write-Host "Creating versioned release $versionTag..."
 gh release create $versionTag $finalApkPath --title "ApkUpdater $versionName" --notes "Versioned release for history"
 

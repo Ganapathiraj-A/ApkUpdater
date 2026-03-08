@@ -11,8 +11,8 @@ android {
         applicationId = "com.antigravity.apkupdater"
         minSdk = 24
         targetSdk = 34
-        versionCode = 10
-        versionName = "1.1.0"
+        versionCode = 12
+        versionName = "1.1.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
