@@ -2,6 +2,8 @@ package com.antigravity.apkupdater
 
 import android.app.DownloadManager
 import android.content.BroadcastReceiver
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
@@ -13,6 +15,11 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ContentCopy
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -21,6 +28,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.FileProvider
 import androidx.work.*
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
@@ -83,6 +92,8 @@ class MainActivity : ComponentActivity() {
             val monitorPeriod = remember { mutableStateOf(getMonitorPeriod()) }
             var statusMessage by remember { mutableStateOf(if (isDoubleLaunch) "Settings Mode" else "Ready to Update") }
             var isDownloading by remember { mutableStateOf(false) }
+            var downloadProgress by remember { mutableStateOf(0f) }
+            var progressText by remember { mutableStateOf("") }
             var lastDownloadedFileName by remember { mutableStateOf<String?>(null) }
             
             // State for reinstalling latest
@@ -158,8 +169,17 @@ class MainActivity : ComponentActivity() {
                 } else {
                     MainScreen(
                         url = currentUrl,
+                        updaterUrl = updaterUrl.value,
+                        agentUrl = agentUrlState.value,
+                        tamilUrl = tamilCalendarUrlState.value,
+                        sbbUrl = sbbPaymentUrlState.value,
+                        gpayUrl = gpayTestUrlState.value,
+                        sigScannerUrl = sigScannerUrlState.value,
+                        callCompanionUrl = callCompanionUrlState.value,
                         status = statusMessage,
                         isDownloading = isDownloading,
+                        downloadProgress = downloadProgress,
+                        progressText = progressText,
                         lastDownloadedFileName = lastDownloadedFileName,
                         latestVersionTag = latestAvailableTag,
                         onUpdateClick = {
@@ -169,7 +189,10 @@ class MainActivity : ComponentActivity() {
                             checkForNewVersion(SRI_BAGAVATH_API_URL, "SriBagavath.apk") { hasNew, tag, id, downloadUrl, message ->
                                 if (hasNew) {
                                     statusMessage = "New version $tag found. Downloading..."
-                                    downloadAndInstallApk(downloadUrl ?: currentUrl, tag, id) { _, msg ->
+                                    downloadAndInstallApk(downloadUrl ?: currentUrl, tag, id, { progress, text ->
+                                        downloadProgress = progress
+                                        progressText = text
+                                    }) { _, msg ->
                                         isDownloading = false
                                         statusMessage = msg
                                         checkLastFile()
@@ -189,7 +212,10 @@ class MainActivity : ComponentActivity() {
                             checkForNewVersion(APK_UPDATER_API_URL, "ApkUpdater.apk") { hasNew, tag, id, downloadUrl, message ->
                                 if (hasNew || downloadUrl != null) {
                                     statusMessage = "Downloading Updater $tag..."
-                                    downloadAndInstallApk(downloadUrl ?: updaterUrl.value, tag, "updater") { _, msg ->
+                                    downloadAndInstallApk(downloadUrl ?: updaterUrl.value, tag, "updater", { progress, text ->
+                                        downloadProgress = progress
+                                        progressText = text
+                                    }) { _, msg ->
                                         isDownloading = false
                                         statusMessage = msg
                                     }
@@ -205,7 +231,10 @@ class MainActivity : ComponentActivity() {
                             checkForNewVersion(AGENT_COMPANION_API_URL, "AgentCompanion.apk") { hasNew, tag, id, downloadUrl, message ->
                                 if (hasNew || downloadUrl != null) {
                                     statusMessage = "Downloading Agent $tag..."
-                                    downloadAndInstallApk(downloadUrl ?: agentUrlState.value, tag, "agent") { _, msg ->
+                                    downloadAndInstallApk(downloadUrl ?: agentUrlState.value, tag, "agent", { progress, text ->
+                                        downloadProgress = progress
+                                        progressText = text
+                                    }) { _, msg ->
                                         isDownloading = false
                                         statusMessage = msg
                                     }
@@ -221,7 +250,10 @@ class MainActivity : ComponentActivity() {
                             checkForNewVersion(TAMIL_CALENDAR_API_URL, "TamilCalendar.apk") { hasNew, tag, id, downloadUrl, message ->
                                 if (hasNew || downloadUrl != null) {
                                     statusMessage = "Downloading Tamil Calendar $tag..."
-                                    downloadAndInstallApk(downloadUrl ?: tamilCalendarUrlState.value, tag, "tamil_calendar") { _, msg ->
+                                    downloadAndInstallApk(downloadUrl ?: tamilCalendarUrlState.value, tag, "tamil_calendar", { progress, text ->
+                                        downloadProgress = progress
+                                        progressText = text
+                                    }) { _, msg ->
                                         isDownloading = false
                                         statusMessage = msg
                                     }
@@ -237,7 +269,10 @@ class MainActivity : ComponentActivity() {
                             checkForNewVersion(SBB_PAYMENT_API_URL, "SBBPayment.apk") { hasNew, tag, id, downloadUrl, message ->
                                 if (hasNew || downloadUrl != null) {
                                     statusMessage = "Downloading SBB Payment $tag..."
-                                    downloadAndInstallApk(downloadUrl ?: sbbPaymentUrlState.value, tag, "sbb_payment") { _, msg ->
+                                    downloadAndInstallApk(downloadUrl ?: sbbPaymentUrlState.value, tag, "sbb_payment", { progress, text ->
+                                        downloadProgress = progress
+                                        progressText = text
+                                    }) { _, msg ->
                                         isDownloading = false
                                         statusMessage = msg
                                     }
@@ -253,7 +288,10 @@ class MainActivity : ComponentActivity() {
                             checkForNewVersion(GPAY_TEST_API_URL, "GpayTest.apk") { hasNew, tag, id, downloadUrl, message ->
                                 if (hasNew || downloadUrl != null) {
                                     statusMessage = "Downloading Gpay Test $tag..."
-                                    downloadAndInstallApk(downloadUrl ?: gpayTestUrlState.value, tag, "gpay_test") { _, msg ->
+                                    downloadAndInstallApk(downloadUrl ?: gpayTestUrlState.value, tag, "gpay_test", { progress, text ->
+                                        downloadProgress = progress
+                                        progressText = text
+                                    }) { _, msg ->
                                         isDownloading = false
                                         statusMessage = msg
                                     }
@@ -269,7 +307,10 @@ class MainActivity : ComponentActivity() {
                             checkForNewVersion(SIG_SCANNER_API_URL, "SignatureScanner.apk") { hasNew, tag, id, downloadUrl, message ->
                                 if (hasNew || downloadUrl != null) {
                                     statusMessage = "Downloading Scanner $tag..."
-                                    downloadAndInstallApk(downloadUrl ?: sigScannerUrlState.value, tag, "sig_scanner") { _, msg ->
+                                    downloadAndInstallApk(downloadUrl ?: sigScannerUrlState.value, tag, "sig_scanner", { progress, text ->
+                                        downloadProgress = progress
+                                        progressText = text
+                                    }) { _, msg ->
                                         isDownloading = false
                                         statusMessage = msg
                                     }
@@ -285,7 +326,10 @@ class MainActivity : ComponentActivity() {
                             checkForNewVersion(CALL_COMPANION_API_URL, "CallCompanion.apk") { hasNew, tag, id, downloadUrl, message ->
                                 if (hasNew || downloadUrl != null) {
                                     statusMessage = "Downloading Call Companion $tag..."
-                                    downloadAndInstallApk(downloadUrl ?: callCompanionUrlState.value, tag, "call_companion") { _, msg ->
+                                    downloadAndInstallApk(downloadUrl ?: callCompanionUrlState.value, tag, "call_companion", { progress, text ->
+                                        downloadProgress = progress
+                                        progressText = text
+                                    }) { _, msg ->
                                         isDownloading = false
                                         statusMessage = msg
                                     }
@@ -302,7 +346,10 @@ class MainActivity : ComponentActivity() {
                             if (latestAvailableUrl != null) {
                                 isDownloading = true
                                 statusMessage = "Re-downloading $latestAvailableTag..."
-                                downloadAndInstallApk(latestAvailableUrl!!, latestAvailableTag, latestAvailableId) { _, msg ->
+                                downloadAndInstallApk(latestAvailableUrl!!, latestAvailableTag, latestAvailableId, { progress, text ->
+                                    downloadProgress = progress
+                                    progressText = text
+                                }) { _, msg ->
                                     isDownloading = false
                                     statusMessage = msg
                                     checkLastFile()
@@ -470,7 +517,7 @@ class MainActivity : ComponentActivity() {
         }.start()
     }
 
-    private fun downloadAndInstallApk(url: String, tag: String?, id: String?, onResult: (Boolean, String) -> Unit) {
+    private fun downloadAndInstallApk(url: String, tag: String?, id: String?, onProgress: (Float, String) -> Unit, onResult: (Boolean, String) -> Unit) {
         try {
             // Clean up old update files first
             getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)?.listFiles()?.forEach { 
@@ -478,7 +525,7 @@ class MainActivity : ComponentActivity() {
                     it.delete()
                 }
             }
-
+            
             val fileName = if (id != null) "update_$id.apk" else "update.apk"
             val downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
             val uri = Uri.parse(url)
@@ -491,6 +538,30 @@ class MainActivity : ComponentActivity() {
                 .setAllowedOverRoaming(true)
 
             val downloadId = downloadManager.enqueue(request)
+
+            // Monitor progress in a thread/coroutine
+            Thread {
+                var downloading = true
+                while (downloading) {
+                    val query = DownloadManager.Query().setFilterById(downloadId)
+                    val cursor = downloadManager.query(query)
+                    if (cursor.moveToFirst()) {
+                        val bytesDownloaded = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR))
+                        val bytesTotal = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES))
+                        
+                        if (cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS)) == DownloadManager.STATUS_SUCCESSFUL) {
+                            downloading = false
+                            runOnUiThread { onProgress(1f, "100%") }
+                        } else if (bytesTotal > 0) {
+                            val progress = bytesDownloaded.toFloat() / bytesTotal.toFloat()
+                            val percentage = (progress * 100).toInt()
+                            runOnUiThread { onProgress(progress, "$percentage%") }
+                        }
+                    }
+                    cursor.close()
+                    if (downloading) Thread.sleep(500)
+                }
+            }.start()
 
             val onComplete = object : BroadcastReceiver() {
                 override fun onReceive(context: Context?, intent: Intent?) {
@@ -567,8 +638,17 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainScreen(
     url: String,
+    updaterUrl: String,
+    agentUrl: String,
+    tamilUrl: String,
+    sbbUrl: String,
+    gpayUrl: String,
+    sigScannerUrl: String,
+    callCompanionUrl: String,
     status: String, 
     isDownloading: Boolean, 
+    downloadProgress: Float,
+    progressText: String,
     lastDownloadedFileName: String?, 
     latestVersionTag: String?, 
     onUpdateClick: () -> Unit,
@@ -583,10 +663,13 @@ fun MainScreen(
     onReinstallLatestClick: () -> Unit, 
     onSettingsClick: () -> Unit
 ) {
+    val context = LocalContext.current
+    val scrollState = rememberScrollState()
     Box(modifier = Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .verticalScroll(scrollState)
                 .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
@@ -608,11 +691,23 @@ fun MainScreen(
             
             Spacer(modifier = Modifier.height(32.dp))
             if (isDownloading) {
-                CircularProgressIndicator()
-            } else {
-                Button(onClick = onUpdateClick, modifier = Modifier.fillMaxWidth()) {
-                    Text("Check for Sri Bagavath Update")
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    LinearProgressIndicator(
+                        progress = downloadProgress,
+                        modifier = Modifier.fillMaxWidth().height(8.dp),
+                        color = MaterialTheme.colorScheme.primary,
+                        trackColor = MaterialTheme.colorScheme.surfaceVariant
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(text = progressText, style = MaterialTheme.typography.labelLarge)
                 }
+            } else {
+                UpdateActionRow(
+                    label = "Check for Sri Bagavath Update",
+                    url = url,
+                    onClick = onUpdateClick,
+                    context = context
+                )
                 
                 // Reinstall Latest from Server
                 if (latestVersionTag != null) {
@@ -639,39 +734,67 @@ fun MainScreen(
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))
-                OutlinedButton(onClick = onUpdaterUpdateClick, modifier = Modifier.fillMaxWidth()) {
-                    Text("Update Apk Updater")
-                }
+                UpdateActionRow(
+                    label = "Update Apk Updater",
+                    url = updaterUrl,
+                    onClick = onUpdaterUpdateClick,
+                    context = context,
+                    buttonColor = MaterialTheme.colorScheme.secondary.copy(alpha = 0.7f)
+                )
                 
                 Spacer(modifier = Modifier.height(8.dp))
-                OutlinedButton(onClick = onAgentUpdateClick, modifier = Modifier.fillMaxWidth()) {
-                    Text("Update Agent Companion")
-                }
+                UpdateActionRow(
+                    label = "Update Agent Companion",
+                    url = agentUrl,
+                    onClick = onAgentUpdateClick,
+                    context = context,
+                    buttonColor = MaterialTheme.colorScheme.secondary.copy(alpha = 0.7f)
+                )
 
                 Spacer(modifier = Modifier.height(8.dp))
-                OutlinedButton(onClick = onTamilCalendarUpdateClick, modifier = Modifier.fillMaxWidth()) {
-                    Text("Update Tamil Calendar")
-                }
+                UpdateActionRow(
+                    label = "Update Tamil Calendar",
+                    url = tamilUrl,
+                    onClick = onTamilCalendarUpdateClick,
+                    context = context,
+                    buttonColor = MaterialTheme.colorScheme.secondary.copy(alpha = 0.7f)
+                )
 
                 Spacer(modifier = Modifier.height(8.dp))
-                OutlinedButton(onClick = onSBBPaymentUpdateClick, modifier = Modifier.fillMaxWidth()) {
-                    Text("Update SBB Payment")
-                }
+                UpdateActionRow(
+                    label = "Update SBB Payment",
+                    url = sbbUrl,
+                    onClick = onSBBPaymentUpdateClick,
+                    context = context,
+                    buttonColor = MaterialTheme.colorScheme.secondary.copy(alpha = 0.7f)
+                )
 
                 Spacer(modifier = Modifier.height(8.dp))
-                OutlinedButton(onClick = onGpayTestUpdateClick, modifier = Modifier.fillMaxWidth()) {
-                    Text("Update Gpay Test")
-                }
+                UpdateActionRow(
+                    label = "Update Gpay Test",
+                    url = gpayUrl,
+                    onClick = onGpayTestUpdateClick,
+                    context = context,
+                    buttonColor = MaterialTheme.colorScheme.secondary.copy(alpha = 0.7f)
+                )
 
                 Spacer(modifier = Modifier.height(8.dp))
-                OutlinedButton(onClick = onSigScannerUpdateClick, modifier = Modifier.fillMaxWidth()) {
-                    Text("Get Signature Scanner")
-                }
+                UpdateActionRow(
+                    label = "Get Signature Scanner",
+                    url = sigScannerUrl,
+                    onClick = onSigScannerUpdateClick,
+                    context = context,
+                    buttonColor = MaterialTheme.colorScheme.secondary.copy(alpha = 0.7f)
+                )
 
                 Spacer(modifier = Modifier.height(8.dp))
-                OutlinedButton(onClick = onCallCompanionUpdateClick, modifier = Modifier.fillMaxWidth()) {
-                    Text("Update Call Companion")
-                }
+                UpdateActionRow(
+                    label = "Update Call Companion",
+                    url = callCompanionUrl,
+                    onClick = onCallCompanionUpdateClick,
+                    context = context,
+                    buttonColor = MaterialTheme.colorScheme.secondary.copy(alpha = 0.7f)
+                )
             }
         }
         
@@ -683,7 +806,7 @@ fun MainScreen(
         }
 
         Text(
-            text = "Version 1.0.4",
+            text = "Version 1.0.7",
             modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 16.dp),
             style = MaterialTheme.typography.labelSmall,
             color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.4f)
@@ -820,6 +943,45 @@ fun SettingsScreen(url: String, updaterUrl: String, agentUrl: String, tamilUrl: 
             Button(onClick = { onSave(text, updaterText, agentText, tamilText, sbbText, gpayText, sigScannerText, callCompanionText, selectedPeriod, selectedInterval) }) {
                 Text("Save")
             }
+        }
+    }
+}
+
+@Composable
+fun UpdateActionRow(
+    label: String,
+    url: String,
+    onClick: () -> Unit,
+    context: Context,
+    buttonColor: Color = MaterialTheme.colorScheme.primary
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        Button(
+            onClick = onClick,
+            modifier = Modifier.weight(1f),
+            colors = ButtonDefaults.buttonColors(containerColor = buttonColor)
+        ) {
+            Text(label, fontSize = 13.sp)
+        }
+        IconButton(
+            onClick = {
+                val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                val clip = ClipData.newPlainText("APK Link", url)
+                clipboard.setPrimaryClip(clip)
+                Toast.makeText(context, "Link Copied", Toast.LENGTH_SHORT).show()
+            },
+            modifier = Modifier.size(36.dp)
+        ) {
+            Icon(
+                Icons.Default.ContentCopy, 
+                contentDescription = "Copy Link", 
+                tint = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.size(20.dp)
+            )
         }
     }
 }
