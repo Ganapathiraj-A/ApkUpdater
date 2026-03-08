@@ -20,10 +20,14 @@ Copy-Item $buildApkPath $finalApkPath
 
 # 3. Get current version from build.gradle.kts
 $gradleFile = "app/build.gradle.kts"
-$versionName = (Get-Content $gradleFile | Select-String 'versionName = "(.*)"').Matches.Groups[1].Value
-$versionCode = (Get-Content $gradleFile | Select-String 'versionCode = (.*)').Matches.Groups[1].Value
+$content = Get-Content $gradleFile
+$versionName = ($content | Select-String 'versionName = "(.*)"').Matches.Groups[1].Value
+$versionCode = ($content | Select-String 'versionCode = (.*)').Matches.Groups[1].Value
 
-Write-Host "Current Version: $versionName ($versionCode)"
+if (-Not $versionName) { $versionName = "1.1.0" }
+if (-Not $versionCode) { $versionCode = "10" }
+
+Write-Host "Detected Version: $versionName ($versionCode)"
 
 # 4. Commit and Push any changes
 $branch = git branch --show-current
