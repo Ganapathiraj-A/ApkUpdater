@@ -1,0 +1,70 @@
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :app:checkKotlinGradlePluginConfigurationErrors
+> Task :app:checkDebugAarMetadata UP-TO-DATE
+> Task :app:generateDebugResValues UP-TO-DATE
+> Task :app:mapDebugSourceSetPaths UP-TO-DATE
+> Task :app:generateDebugResources UP-TO-DATE
+> Task :app:mergeDebugResources UP-TO-DATE
+> Task :app:packageDebugResources UP-TO-DATE
+> Task :app:parseDebugLocalResources UP-TO-DATE
+> Task :app:createDebugCompatibleScreenManifests UP-TO-DATE
+> Task :app:extractDeepLinksDebug UP-TO-DATE
+> Task :app:processDebugMainManifest UP-TO-DATE
+> Task :app:processDebugManifest UP-TO-DATE
+> Task :app:processDebugManifestForPackage UP-TO-DATE
+> Task :app:processDebugResources UP-TO-DATE
+> Task :app:javaPreCompileDebug UP-TO-DATE
+> Task :app:mergeDebugShaders UP-TO-DATE
+> Task :app:compileDebugShaders NO-SOURCE
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :app:mergeDebugAssets UP-TO-DATE
+> Task :app:compressDebugAssets UP-TO-DATE
+> Task :app:checkDebugDuplicateClasses UP-TO-DATE
+> Task :app:desugarDebugFileDependencies UP-TO-DATE
+> Task :app:mergeExtDexDebug UP-TO-DATE
+> Task :app:mergeLibDexDebug UP-TO-DATE
+> Task :app:mergeDebugJniLibFolders UP-TO-DATE
+> Task :app:mergeDebugNativeLibs NO-SOURCE
+> Task :app:stripDebugDebugSymbols NO-SOURCE
+> Task :app:validateSigningDebug UP-TO-DATE
+> Task :app:writeDebugAppMetadata UP-TO-DATE
+> Task :app:writeDebugSigningConfigVersions UP-TO-DATE
+
+> Task :app:compileDebugKotlin
+w: file:///home/ganapathiraj/Code/AndroidDevelopment/ApkUpdater/app/src/main/java/com/antigravity/apkupdater/MainActivity.kt:299:37 Parameter 'currentStatus' is never used
+w: file:///home/ganapathiraj/Code/AndroidDevelopment/ApkUpdater/app/src/main/java/com/antigravity/apkupdater/MainActivity.kt:410:44 Parameter 'tag' is never used
+w: file:///home/ganapathiraj/Code/AndroidDevelopment/ApkUpdater/app/src/main/java/com/antigravity/apkupdater/MainActivity.kt:484:82 Parameter 'onAddTesterClick' is never used
+w: file:///home/ganapathiraj/Code/AndroidDevelopment/ApkUpdater/app/src/main/java/com/antigravity/apkupdater/MainActivity.kt:485:33 Parameter 'onReinstallClick' is never used
+w: file:///home/ganapathiraj/Code/AndroidDevelopment/ApkUpdater/app/src/main/java/com/antigravity/apkupdater/MainActivity.kt:485:63 Parameter 'onRefreshClick' is never used
+w: file:///home/ganapathiraj/Code/AndroidDevelopment/ApkUpdater/app/src/main/java/com/antigravity/apkupdater/MainActivity.kt:485:91 Parameter 'onResetClick' is never used
+w: file:///home/ganapathiraj/Code/AndroidDevelopment/ApkUpdater/app/src/main/java/com/antigravity/apkupdater/MainActivity.kt:486:30 Parameter 'onManualIpClick' is never used
+w: file:///home/ganapathiraj/Code/AndroidDevelopment/ApkUpdater/app/src/main/java/com/antigravity/apkupdater/MainActivity.kt:487:5 Parameter 'localServerIp' is never used
+w: file:///home/ganapathiraj/Code/AndroidDevelopment/ApkUpdater/app/src/main/java/com/antigravity/apkupdater/MainActivity.kt:487:29 Parameter 'localManifest' is never used
+w: file:///home/ganapathiraj/Code/AndroidDevelopment/ApkUpdater/app/src/main/java/com/antigravity/apkupdater/MainActivity.kt:487:57 Parameter 'isScanningByWifi' is never used
+w: file:///home/ganapathiraj/Code/AndroidDevelopment/ApkUpdater/app/src/main/java/com/antigravity/apkupdater/MainActivity.kt:489:5 Parameter 'lastDownloadedFileBuildTime' is never used
+w: file:///home/ganapathiraj/Code/AndroidDevelopment/ApkUpdater/app/src/main/java/com/antigravity/apkupdater/MainActivity.kt:490:5 Parameter 'downloadSpeed' is never used
+w: file:///home/ganapathiraj/Code/AndroidDevelopment/ApkUpdater/app/src/main/java/com/antigravity/apkupdater/MainActivity.kt:490:28 Parameter 'downloadElapsedSeconds' is never used
+w: file:///home/ganapathiraj/Code/AndroidDevelopment/ApkUpdater/app/src/main/java/com/antigravity/apkupdater/MainActivity.kt:492:52 Parameter 'lastDownloadDuration' is never used
+w: file:///home/ganapathiraj/Code/AndroidDevelopment/ApkUpdater/app/src/main/java/com/antigravity/apkupdater/MainActivity.kt:492:82 Parameter 'lastDownloadSpeed' is never used
+w: file:///home/ganapathiraj/Code/AndroidDevelopment/ApkUpdater/app/src/main/java/com/antigravity/apkupdater/MainActivity.kt:532:17 'LinearProgressIndicator(Float, Modifier = ..., Color = ..., Color = ..., StrokeCap = ...): Unit' is deprecated. Use the overload that takes `progress` as a lambda
+
+> Task :app:compileDebugJavaWithJavac NO-SOURCE
+> Task :app:processDebugJavaRes UP-TO-DATE
+> Task :app:dexBuilderDebug
+> Task :app:mergeProjectDexDebug
+> Task :app:mergeDebugJavaResource
+> Task :app:packageDebug
+> Task :app:createDebugApkListingFileRedirect UP-TO-DATE
+> Task :app:assembleDebug
+[Incubating] Problems report is available at: file:///home/ganapathiraj/Code/AndroidDevelopment/ApkUpdater/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.11.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 1m 4s
+32 actionable tasks: 6 executed, 26 up-to-date

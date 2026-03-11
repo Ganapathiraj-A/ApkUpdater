@@ -6,7 +6,11 @@ APK_PATH="app/build/outputs/apk/debug/app-debug.apk"
 OUTPUT_APK="${APP_NAME}.apk"
 TAG_NAME="latest"
 RELEASE_TITLE="Latest ApkUpdater"
-RELEASE_NOTES="Direct download link for ApkUpdater to avoid Google Drive corruption issues."
+RELEASE_NOTES="Improvements:
+- **WiFi-Based Updates**: Automatically discover laptop on local network to download APKs at high speed.
+- **Smart Discovery**: UI indicator 'WiFi ON' appears when local server is detected.
+- **Manual Scan**: Added button to manually trigger a WiFi discovery scan.
+- **Improved Reliability**: Added support for cleartext traffic for local network connectivity."
 
 echo "Starting Build & Publish Process for $APP_NAME..."
 

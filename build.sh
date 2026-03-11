@@ -1,8 +1,8 @@
 #!/bin/bash
-# Check if gradle is installed
-if command -v gradle >/dev/null 2>&1; then
-    gradle assembleDebug
+export JAVA_HOME="/usr/lib/jvm/java-21-openjdk-amd64"
+if [ -f "./gradlew" ]; then
+    ./gradlew assembleDebug
 else
-    echo "Gradle not found. Please install gradle or use the wrapper if available."
+    echo "Gradle wrapper not found."
     exit 1
 fi

@@ -1,5 +1,5 @@
 #!/bin/bash
-ICON_SRC="/home/ganapathiraj/.gemini/antigravity/brain/3af16735-2437-4e8f-b608-f3d214372586/apk_updater_icon_1766011286033.png"
+ICON_SRC="/home/ganapathiraj/.gemini/antigravity/brain/4eeb4736-441e-4c4b-bda1-7247e7cb8f86/apk_updater_icon_source_1767234725315.png"
 RES_DIR="app/src/main/res"
 
 # Standard sizes - Renamed to force refresh
@@ -33,6 +33,8 @@ make_round 144 "$RES_DIR/mipmap-xxhdpi/ic_updater_app_icon_round.png"
 make_round 192 "$RES_DIR/mipmap-xxxhdpi/ic_updater_app_icon_round.png"
 
 rm "$MASK"
-# Remove old icons
+# Remove old icons and adaptive XMLs that might override the PNGs
 find app/src/main/res -name "ic_launcher*" -delete
-echo "Renamed icons installed successfully."
+rm -f "$RES_DIR/mipmap-anydpi-v26/ic_updater_app_icon.xml"
+rm -f "$RES_DIR/mipmap-anydpi-v26/ic_updater_app_icon_round.xml"
+echo "Renamed PNG icons installed successfully (adaptive XMLs removed)."
